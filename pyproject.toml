@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "gpt-test"
+version = "0.1.0"
+description = ""
+authors = ["Brian Finney <bri@nfinney.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.12"
+pyautogen = {path = "./vendor/autogen", develop = true}
+prompt-toolkit = "^3.0.41"
+Pygments = "^2.17.2"
+asyncio = "^3.4.3"
+pytest = "^7.4.3"
+llmlingua = "^0.1.3"
+docker = "^7.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
