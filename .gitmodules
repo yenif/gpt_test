@@ -1,3 +1,10 @@
 [submodule "collaged_old"]
 	path = collaged_old
 	url = https://github.com/yenif/collaged.git
+[submodule "vendor/LLMLingua"]
+	path = vendor/LLMLingua
+	url = git@github.com:microsoft/LLMLingua.git
+[submodule "vendor/autogen"]
+	path = vendor/autogen
+	url = git@github.com:yenif/autogen.git
+	branch = compressible_agent_tool_calls
