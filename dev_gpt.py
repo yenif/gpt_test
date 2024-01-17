@@ -5,10 +5,10 @@ import asyncio
 import os
 import re
 from typing import Any, Dict, List, Optional, Tuple, Union
-from autogen import Agent, UserProxyAgent
+from autogen.agentchat import Agent, UserProxyAgent
 from autogen.code_utils import content_str
 from autogen.agentchat.contrib.compressible_agent import CompressibleAgent
-from autogen.agentchat.contrib.llm_lingua_agent import LLMLinguaAgent
+# from autogen.agentchat.contrib.llm_lingua_agent import LLMLinguaAgent
 from prompt_toolkit import PromptSession
 
 from bash_tool import bash
@@ -16,7 +16,7 @@ from bash_tool import bash
 logging.basicConfig(level=logging.INFO)
 
 BASE_URL = "http://localhost:1234/v1"
-SEED = 2
+SEED = 0
 
 store_dir = "./conversation_store"
 async def a_durable_messages_store_and_load(
@@ -24,7 +24,7 @@ async def a_durable_messages_store_and_load(
     messages: Optional[List[Dict]] = None,
     sender: Optional[Agent] = None,
     config: Optional[Any] = None,
-) -> Tuple[bool, Union[str, None]]:
+) -> Tuple[bool, Union[dict, str, None]]:
     """
     Store messages to a durable storage and load them back.
     Args:
@@ -40,10 +40,12 @@ async def a_durable_messages_store_and_load(
     if config is None:
         config = {}
 
+    sender_name = sender.name if sender else ""
+
     # if self.durable_messages_store is not defined, set it to a read/write filehandle to {store_dir}/{self.name}
     if not hasattr(self, "durable_messages_store"):
         os.makedirs(store_dir, exist_ok=True)
-        file_name = f"{self.name}:{sender.name}".replace(" ", "_")
+        file_name = f"{self.name}:{sender_name}".replace(" ", "_")
         file_path = os.path.join(store_dir, file_name)
         self.durable_messages_store = open(f"{file_path}.json", "a+")
         # If the file is not empty, prompt the user to ask if the want to load the messages
@@ -68,9 +70,9 @@ def main():
     # assistant = LLMLinguaAgent(
     assistant = CompressibleAgent(
         name="LLM Programmer",
-        max_consecutive_auto_reply=float("inf"),
-        auto_reply_role="assistant",
-        set_name_on_response=True,
+        max_consecutive_auto_reply=float("inf"), # type: ignore
+        # auto_reply_role="assistant",
+        # set_name_on_response=True,
         llm_config={
             # "base_url": BASE_URL,
             # "model": "ollama/openchat",
@@ -200,8 +202,8 @@ def main():
         human_input_mode="TERMINATE",
         is_termination_msg=(lambda x: re.match(r'INTERVENE', content_str(x.get("content")))),
         max_consecutive_auto_reply=1000,
-        auto_reply_role="assistant",
-        set_name_on_response=True,
+        # auto_reply_role="assistant",
+        # set_name_on_response=True,
         llm_config={
             # "base_url": BASE_URL,
             # "model": "ollama/openchat",

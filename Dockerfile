@@ -22,7 +22,5 @@ RUN gem install rails
 # Copy the local project files to the container
 COPY . /app
 
-#RUN cd /app/vendor/autogen && python3 setup.py install && cd /app
-
 # Set the command to run the application interactively
 CMD ["poetry", "run", "python", "dev_gpt.py"]

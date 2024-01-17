@@ -32,7 +32,7 @@ if not initialized:
 
 async def run_command_with_async_readers(command):
     # Prepare the Docker exec command
-    docker_exec_command = ["docker", "exec", "gpt_bash", "bash", "-c", command]
+    docker_exec_command = ["docker", "exec", container_name, "bash", "-c", command]
 
     # Start the subprocess without using the shell
     process = await asyncio.create_subprocess_exec(

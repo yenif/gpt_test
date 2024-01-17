@@ -1,8 +1,9 @@
 .*
 __pycache__
-collaged_old
 collaged
 vendor
 
 log.txt
 conversation_store/*
+OAI_CONFIG_LIST
+tmp
