@@ -18,7 +18,7 @@ accelerate = "^0.25.0"
 torch = "^2.1.2"
 transformers = "^4.36.1"
 einops = "^0.7.0"
-litellm = "^1.15.1"
+litellm = "^1.40.29"
 
 
 [[tool.poetry.source]]
